@@ -1,10 +1,7 @@
 import React from 'react'
-import Sidebar from './Sidebar'
-import Login from './Login'
-import Register from './Register'
-import {useLocation} from 'react-router'
+import { useLocation } from 'react-router'
 import { useNavigate } from 'react-router'
-
+import { Logo, Menu, Logout as LogoutIcon } from './Icons'
 
 const Navbar = ({ isSideBarActive, setIsSideBarActive }) => {
     const location = useLocation();
@@ -17,52 +14,54 @@ const Navbar = ({ isSideBarActive, setIsSideBarActive }) => {
         navigate('/');
     }
 
+    const isLanding = location.pathname === '/';
+
     return (
-        <div>
-            <div className='shadow-xl/20 rounded-tl-lg rounded-tr-lg shadow-3xl flex items-center w-full h-15 bg-gradient-to-br from-blue-400 via-blue-450 via-blue-500 via-blue-550 to-blue-600'>
+        <header className="sticky top-0 z-40 glass border-b border-slate-200/70">
+            <div className="flex h-16 items-center gap-3 px-4 sm:px-6">
+                {/* Sidebar toggle — only meaningful on app pages */}
+                {typeof setIsSideBarActive === 'function' && (
+                    <button
+                        onClick={(e) => {
+                            e.preventDefault();
+                            setIsSideBarActive(!isSideBarActive);
+                        }}
+                        aria-label="Toggle sidebar"
+                        className="flex h-10 w-10 items-center justify-center rounded-xl text-slate-600 ring-1 ring-slate-200 bg-white/60 transition hover:bg-white hover:text-brand-700 cursor-pointer"
+                    >
+                        <Menu size={20} />
+                    </button>
+                )}
+
+                {/* Brand */}
                 <button
-                    onClick={(e) => {
-                        e.preventDefault();
-                        setIsSideBarActive(!isSideBarActive);
-                    }}
-                    className='text-white m-8 cursor-pointer'>
-                    <span className="material-symbols-outlined">menu</span>
+                    onClick={() => navigate('/Home')}
+                    className="flex items-center gap-2.5 cursor-pointer"
+                >
+                    <span className="flex h-9 w-9 items-center justify-center rounded-xl brand-gradient text-white shadow-lg shadow-brand-600/30">
+                        <Logo size={20} />
+                    </span>
+                    <span className="text-lg font-extrabold tracking-tight text-slate-900">
+                        Sub<span className="gradient-text">Tracker</span>
+                    </span>
                 </button>
 
-                <h1 className='text-center text-3xl text-slate-50 w-auto h-auto'>SubTracker</h1>
-
-                <div className='w-[50%]'>
-                    {location.pathname === '/' ? (
-                        <div className='flex justify-evenly'>
-                        <button
-                            className='p-2 rounded-2xl px-[8%] bg-gradient-to-br from-blue-600 via-blue-650 to-blue-700 text-white hover:cursor-pointer '
-                            onClick={() => {
-                                navigate('/login')
-                            }}
-                        >Login</button>
-                        <button
-                            className='p-2 rounded-2xl px-[8%] bg-gradient-to-br from-blue-600 via-blue-650 to-blue-700 text-white hover:cursor-pointer'
-                            onClick={() => {
-                                navigate('/register')
-                            }}
-                        >Register</button>
-                    </div>
+                {/* Right actions */}
+                <div className="ml-auto flex items-center gap-2 sm:gap-3">
+                    {isLanding ? (
+                        <>
+                            <button className="btn-ghost" onClick={() => navigate('/login')}>Login</button>
+                            <button className="btn-primary" onClick={() => navigate('/register')}>Register</button>
+                        </>
                     ) : (
-                        <button 
-                            className=''
-                            onClick={Logout}
-                        >
-                            logout
+                        <button onClick={Logout} className="btn-ghost">
+                            <LogoutIcon size={17} />
+                            <span className="hidden sm:inline">Logout</span>
                         </button>
                     )}
-                    
                 </div>
-
             </div>
-
-
-        </div>
-
+        </header>
     )
 }
 

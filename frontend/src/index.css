@@ -1,7 +1,202 @@
 @import "tailwindcss";
 
-#root{
-    margin-left: 2px;
-    margin-right: 2px;
-    margin-top: 2px;
+/* ---------------------------------------------------------------------------
+   SubTracker – Design System
+   Palette: soft summer pastels — pale yellow, cream/beige, sky blue.
+   Brand family anchored to the palette blues (#BFDDF0, #8CC0EB) and deepened
+   for legible interactive elements. Font: Inter.
+--------------------------------------------------------------------------- */
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+
+  /* Blue family — 200/300 are the palette swatches, deeper shades derived. */
+  --color-brand-50: #f3f9fd;
+  --color-brand-100: #e3f1fa;
+  --color-brand-200: #bfddf0; /* palette · light blue */
+  --color-brand-300: #8cc0eb; /* palette · blue */
+  --color-brand-400: #63a7dd;
+  --color-brand-500: #4593ce;
+  --color-brand-600: #3480bd;
+  --color-brand-700: #296896;
+  --color-brand-800: #21526f;
+  --color-brand-900: #1b4056;
+
+  /* Warm palette accents */
+  --color-sand-100: #fff9d2; /* palette · pale yellow */
+  --color-sand-200: #ffebcc; /* palette · beige */
+  --color-sand-300: #ffe0a8;
+}
+
+:root {
+  /* Solid brand surfaces carrying white content (buttons, chips, tiles). */
+  --brand-grad: linear-gradient(135deg, #4593ce 0%, #3480bd 55%, #296896 100%);
+  /* The literal palette gradient — showcase surfaces that carry dark text. */
+  --grad-soft: linear-gradient(
+    150deg,
+    #fff9d2 0%,
+    #ffebcc 32%,
+    #bfddf0 68%,
+    #8cc0eb 100%
+  );
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: #0f172a;
+  background: #fbfdff;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* ---- Reusable component classes ---------------------------------------- */
+
+@layer components {
+  .btn,
+  .btn-primary,
+  .btn-ghost,
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5
+      text-sm font-semibold transition-all duration-200 cursor-pointer
+      focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400
+      focus-visible:ring-offset-2 disabled:opacity-60 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply text-white shadow-lg shadow-brand-600/25
+      hover:shadow-xl hover:shadow-brand-600/30 hover:-translate-y-0.5
+      active:translate-y-0;
+    background-image: var(--brand-grad);
+  }
+
+  .btn-ghost {
+    @apply bg-white/70 text-slate-700 ring-1 ring-slate-200
+      hover:bg-white hover:ring-slate-300 backdrop-blur;
+  }
+
+  .btn-outline {
+    @apply bg-transparent text-brand-700 ring-1 ring-brand-200
+      hover:bg-brand-50 hover:ring-brand-300;
+  }
+
+  .card {
+    @apply rounded-2xl bg-white ring-1 ring-slate-200/70 shadow-sm;
+  }
+
+  .input {
+    @apply w-full rounded-xl border-0 bg-slate-50 px-4 py-3 text-sm text-slate-900
+      ring-1 ring-inset ring-slate-200 outline-none transition
+      placeholder:text-slate-400
+      focus:bg-white focus:ring-2 focus:ring-brand-500;
+  }
+
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-slate-700;
+  }
+
+  .gradient-text {
+    /* Deep-blue gradient so the wordmark stays legible on light surfaces. */
+    background-image: linear-gradient(120deg, #3480bd 0%, #296896 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* ---- Decorative helpers ------------------------------------------------- */
+
+.brand-gradient {
+  background-image: var(--brand-grad);
+}
+
+/* The signature soft pastel gradient (yellow → beige → blue). Dark text only. */
+.grad-soft {
+  background-image: var(--grad-soft);
+}
+
+.mesh-bg {
+  background-color: #fbfdff;
+  background-image:
+    radial-gradient(at 0% 0%, rgba(255, 249, 210, 0.85) 0px, transparent 45%),
+    radial-gradient(at 100% 4%, rgba(255, 235, 204, 0.75) 0px, transparent 45%),
+    radial-gradient(at 88% 100%, rgba(140, 192, 235, 0.45) 0px, transparent 50%),
+    radial-gradient(at 8% 92%, rgba(191, 221, 240, 0.5) 0px, transparent 50%);
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+  background-clip: content-box;
+}
+
+/* Animations */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-up {
+  animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes blob {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(24px, -18px) scale(1.08);
+  }
+  66% {
+    transform: translate(-18px, 18px) scale(0.94);
+  }
+}
+.animate-blob {
+  animation: blob 14s ease-in-out infinite;
 }
