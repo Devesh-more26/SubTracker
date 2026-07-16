@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import { Wallet, Users, Calendar, Bell, Check, Plus } from './Icons'
 
 const Form = () => {
     const [name, setName] = useState("");
@@ -65,90 +66,117 @@ const Form = () => {
     }
 
     return (
-        <div className="m-[2px]">
+        <div>
             {/* error and success messages */}
             {successMsg && (
-                <p className='text-white bg-green-400 p-4 w-full rounded-2xl mb-1'>{successMsg}</p>
+                <div className="mb-4 flex items-center gap-2 rounded-xl bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700 ring-1 ring-emerald-100">
+                    <Check size={16} /> {successMsg}
+                </div>
             )}
 
             {errorMsg && (
-                <p className='text-white bg-red-400 p-4 w-full rounded-2xl mb-1'>{errorMsg}</p>
+                <div className="mb-4 rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-600 ring-1 ring-red-100">
+                    {errorMsg}
+                </div>
             )}
 
             {/* main form */}
-            <h2 className="text-2xl p-3 font-bold shadow-xl text-slate-50 bg-blue-800 h-full rounded-tl-2xl rounded-tr-2xl">
-                Subscription Form
-            </h2>
-            <form
-                onSubmit={handleSubmit}
-                className="w-full h-full flex flex-col bg-white shadow-xl p-8 space-y-5"
-            >
-                <div className='flex flex-row justify-evenly'>
-                    <div className='w-full mr-[4%]'>
-                        <h3>Subscription Name</h3>
-                        <input
-                            type="text"
-                            placeholder="Name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                        />
-                    </div>
-
-                    <div className='w-full mr-[4%]'>
-                        <h3>No. of user</h3>
-                        <input
-                            type="number"
-                            placeholder="User"
-                            value={user}
-                            onChange={(e) => setUser(e.target.value)}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                        />
-                    </div>
-
-                    <div className='w-full'>
-                        <h3>Price/month $</h3>
-                        <input
-                            type="number"
-                            placeholder="Price"
-                            value={price}
-                            onChange={(e) => setPrice(e.target.value)}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
-                        />
+            <div className="card overflow-hidden">
+                <div className="flex items-center gap-3 border-b border-slate-100 px-6 py-5">
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl brand-gradient text-white">
+                        <Wallet size={20} />
+                    </span>
+                    <div>
+                        <h2 className="text-lg font-bold text-slate-900">Subscription details</h2>
+                        <p className="text-xs text-slate-500">All fields help you keep an accurate overview.</p>
                     </div>
                 </div>
 
-                <div className='flex'>
-                    <div className='w-full mr-[4%]'>
-                        <h3>Subscription Start Date</h3>
-                        <input
-                            type="date"
-                            placeholder="Subscription Start Date"
-                            value={subscribDate}
-                            onChange={(e) => setSubscribDate(e.target.value)}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-600"
-                        />
+                <form onSubmit={handleSubmit} className="space-y-6 p-6">
+                    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                        <div className="sm:col-span-2 lg:col-span-1">
+                            <label className="label" htmlFor="name">Subscription name</label>
+                            <input
+                                id="name"
+                                type="text"
+                                placeholder="e.g. Netflix"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                className="input"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="label" htmlFor="users">No. of users</label>
+                            <div className="relative">
+                                <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400">
+                                    <Users size={17} />
+                                </span>
+                                <input
+                                    id="users"
+                                    type="number"
+                                    placeholder="1"
+                                    value={user}
+                                    onChange={(e) => setUser(e.target.value)}
+                                    className="input pl-10"
+                                />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label className="label" htmlFor="price">Price / month</label>
+                            <div className="relative">
+                                <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 font-semibold text-slate-400">$</span>
+                                <input
+                                    id="price"
+                                    type="number"
+                                    placeholder="0.00"
+                                    value={price}
+                                    onChange={(e) => setPrice(e.target.value)}
+                                    className="input pl-8"
+                                />
+                            </div>
+                        </div>
                     </div>
 
-                    <div className='w-full'>
-                        <h3>Expire Date</h3>
-                        <input
-                            type="date"
-                            placeholder="Expire Date"
-                            value={expireDate}
-                            onChange={(e) => setExpireDate(e.target.value)}
-                            className="w-full px-4 py-3 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition text-gray-600"
-                        />
-                    </div>
-                </div>
+                    <div className="grid gap-5 sm:grid-cols-2">
+                        <div>
+                            <label className="label" htmlFor="start">
+                                <span className="inline-flex items-center gap-1.5"><Calendar size={15} /> Start date</span>
+                            </label>
+                            <input
+                                id="start"
+                                type="date"
+                                value={subscribDate}
+                                onChange={(e) => setSubscribDate(e.target.value)}
+                                className="input text-slate-600"
+                            />
+                        </div>
 
-                <button
-                    type="submit"
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition duration-300 cursor-pointer"
-                >
-                    Submit
-                </button>
-            </form>
+                        <div>
+                            <label className="label" htmlFor="expire">
+                                <span className="inline-flex items-center gap-1.5"><Bell size={15} /> Expiry date</span>
+                            </label>
+                            <input
+                                id="expire"
+                                type="date"
+                                value={expireDate}
+                                onChange={(e) => setExpireDate(e.target.value)}
+                                className="input text-slate-600"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col-reverse gap-3 border-t border-slate-100 pt-6 sm:flex-row sm:justify-end">
+                        <button
+                            type="submit"
+                            className="btn-primary w-full py-3 sm:w-auto sm:px-8"
+                        >
+                            <Plus size={18} /> Add subscription
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     )
 }

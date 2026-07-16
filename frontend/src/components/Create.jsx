@@ -39,13 +39,21 @@ const Create = () => {
     console.log(users);
 
     return (
-        <div>
-            <div className='transition-all duration-300 overflow-hidden'>
-                <Navbar isSideBarActive={isSideBarActive} setIsSideBarActive={setIsSideBarActive} />
-            </div>
-            <div className="flex flex-row">
-                {isSideBarActive ? <Sidebar></Sidebar> : ""}
-                <div className='flex-1 transition-all duration-300'><Form /></div>
+        <div className="flex min-h-screen flex-col mesh-bg">
+            <Navbar isSideBarActive={isSideBarActive} setIsSideBarActive={setIsSideBarActive} />
+
+            <div className="flex flex-1">
+                {isSideBarActive && <Sidebar />}
+
+                <main className="min-w-0 flex-1 px-4 py-6 sm:px-6 lg:px-8">
+                    <div className="mx-auto max-w-3xl">
+                        <div className="mb-6">
+                            <h1 className="text-2xl font-extrabold tracking-tight text-slate-900">Add a subscription</h1>
+                            <p className="mt-1 text-sm text-slate-500">Enter the details below to start tracking a new plan.</p>
+                        </div>
+                        <Form />
+                    </div>
+                </main>
             </div>
         </div>
     )

@@ -37,6 +37,9 @@ CORS_ALLOWED_ORIGINS = [
 
 *install tailwindCSS*
 
+*See [Frontend_Design_Guide.md](./Frontend_Design_Guide.md) — plain-English guide to the
+moving hero gradients, button hover effects, and a reusable landing page structure.*
+
 
 
 # Questions
