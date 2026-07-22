@@ -5,8 +5,8 @@ import { Home, Plus, Pencil, Trash } from './Icons'
 const links = [
     { label: 'Home', icon: Home, path: '/Home', match: '/home' },
     { label: 'Create', icon: Plus, path: '/create', match: '/create' },
-    { label: 'Edit', icon: Pencil, path: '/edit/:id', match: '/edit' },
-    { label: 'Delete', icon: Trash, path: '/delete/:id', match: '/delete' },
+    // { label: 'Edit', icon: Pencil, path: '/edit/:id', match: '/edit' },
+    // { label: 'Delete', icon: Trash, path: '/delete/:id', match: '/delete' },
 ]
 
 const Sidebar = () => {

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
-import { Wallet, Chart, Users, Plus, Calendar, Bell } from "./Icons";
+import { Wallet, Chart, Users, Plus, Calendar, Bell, Pencil, Trash } from "./Icons";
 
 // Small helpers — purely presentational formatting of the fetched data.
 const money = (n) => {
@@ -11,10 +11,10 @@ const money = (n) => {
   return isNaN(v)
     ? "$0.00"
     : "$" +
-        v.toLocaleString(undefined, {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        });
+    v.toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
 };
 const initial = (name) =>
   name && name.trim() ? name.trim()[0].toUpperCase() : "?";
@@ -43,6 +43,8 @@ const Home = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
+ 
+
   useEffect(() => {
     const GetSubscription = async () => {
       try {
@@ -55,6 +57,7 @@ const Home = () => {
         const data = await response.json();
 
         setSubscription(data);
+
         console.log(data);
       } catch (err) {
         setError(err.message);
@@ -64,7 +67,7 @@ const Home = () => {
     };
 
     GetSubscription();
-    console.log("printing again", subscription);
+    // console.log("printing again", subscription);
   }, []);
 
   const totalSpend = subscription.reduce(
@@ -214,6 +217,8 @@ const Home = () => {
                         <th className="px-5 py-3">Start date</th>
                         <th className="px-5 py-3">Expiry date</th>
                         <th className="px-5 py-3 text-right">Users</th>
+                        <th className="px-5 py-3 text-right">Edit</th>
+                        <th className="px-5 py-3 text-right">Delete</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100">
@@ -251,6 +256,20 @@ const Home = () => {
                             <span className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-600">
                               <Users size={12} /> {s.number_of_user}
                             </span>
+                          </td>
+                          <td
+                            onClick={(e) => {
+                              navigate(`/edit/${s.id}`)
+                            }}
+                            className="px-5 py-3.5 text-right">
+                            <Pencil className="inline-flex items-center cursor-pointer" />
+                          </td>
+                          <td
+                            onClick={() => {
+                              navigate(`/delete/${s.id}`)
+                            }}
+                            className="px-5 py-3.5 text-right">
+                            <Trash className="inline-flex items-center cursor-pointer" />
                           </td>
                         </tr>
                       ))}

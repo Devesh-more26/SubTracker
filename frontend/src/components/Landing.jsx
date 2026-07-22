@@ -148,7 +148,7 @@ const Landing = () => {
             </span>
             <h1 className="mt-5 text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
               Every subscription,{' '}
-              <span className="gradient-text">under control.</span>
+              <span className="gradient-text ">under control.</span>
             </h1>
             <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-slate-600 sm:text-lg lg:mx-0">
               SubTracker gives you one calm dashboard for every plan you pay for —

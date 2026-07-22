@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate, login
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.generics import RetrieveUpdateAPIView
 
 # Create your views here.
 # User = get_user_model()
@@ -56,6 +57,7 @@ class LoginView(APIView):
 
         else:
             return Response({"message": "Invalide Credentials"},status=401)
+        
     
 class SubscriptionViewSet(viewsets.ModelViewSet):
     # permissions_classes = [permissions.AllowAny]
